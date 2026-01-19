@@ -5,7 +5,7 @@ Upload your resume + preferences, paste a company job link, get the best jobs to
 ## Features
 
 - 📄 Resume parsing (PDF, DOCX, or plain text)
-- 🔗 Supports Greenhouse and Lever job boards
+- 🔗 Supports Greenhouse, Lever, and Workday job boards
 - 🤖 AI-powered job matching with Gemini
 - 📊 Ranked recommendations with match scores
 - ✅ Clear explanations of why jobs match
@@ -100,10 +100,11 @@ Content-Type: application/json
 
 ## Supported Job Boards
 
-| Platform   | URL Pattern              | Example                             |
-| ---------- | ------------------------ | ----------------------------------- |
-| Greenhouse | `boards.greenhouse.io/*` | https://boards.greenhouse.io/stripe |
-| Lever      | `jobs.lever.co/*`        | https://jobs.lever.co/figma         |
+| Platform   | URL Pattern              | Example                                  |
+| ---------- | ------------------------ | ---------------------------------------- |
+| Greenhouse | `boards.greenhouse.io/*` | https://boards.greenhouse.io/stripe      |
+| Lever      | `jobs.lever.co/*`        | https://jobs.lever.co/figma              |
+| Workday    | `*.myworkdayjobs.com/*`  | https://nvidia.wd5.myworkdayjobs.com/... |
 
 ## Development
 

@@ -1,11 +1,11 @@
 """Router for selecting appropriate job source connector based on URL."""
 
-import re
 from urllib.parse import urlparse
 
 from app.services.job_sources.base import JobSourceConnector
 from app.services.job_sources.greenhouse import GreenhouseConnector
 from app.services.job_sources.lever import LeverConnector
+from app.services.job_sources.workday import WorkdayConnector
 
 
 class UnsupportedJobSourceError(Exception):
@@ -15,8 +15,9 @@ class UnsupportedJobSourceError(Exception):
         self.url = url
         super().__init__(
             f"Unsupported jobs link: {url}. "
-            "Currently supports: Greenhouse (https://boards.greenhouse.io/...) "
-            "and Lever (https://jobs.lever.co/...)."
+            "Currently supports: Greenhouse (https://boards.greenhouse.io/...), "
+            "Lever (https://jobs.lever.co/...), and "
+            "Workday (https://company.wd5.myworkdayjobs.com/...)."
         )
 
 
@@ -43,6 +44,10 @@ def get_connector_for_url(url: str) -> JobSourceConnector:
     # Check for Lever
     if "lever.co" in host:
         return LeverConnector(url)
+    
+    # Check for Workday
+    if "myworkdayjobs.com" in host:
+        return WorkdayConnector(url)
     
     # Unknown source
     raise UnsupportedJobSourceError(url)

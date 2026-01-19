@@ -80,9 +80,9 @@ export function UploadForm() {
     } else {
       try {
         const url = new URL(formData.companyJobsUrl);
-        const isSupported = url.hostname.includes("greenhouse.io") || url.hostname.includes("lever.co");
+        const isSupported = url.hostname.includes("greenhouse.io") || url.hostname.includes("lever.co") || url.hostname.includes("myworkdayjobs.com");
         if (!isSupported) {
-          newErrors.companyJobsUrl = "Currently only Greenhouse and Lever URLs are supported";
+          newErrors.companyJobsUrl = "Currently only Greenhouse, Lever, and Workday URLs are supported";
         }
       } catch {
         newErrors.companyJobsUrl = "Please enter a valid URL";
@@ -238,7 +238,7 @@ export function UploadForm() {
               onChange={(e) => setFormData(prev => ({ ...prev, companyJobsUrl: e.target.value }))}
             />
             <p className="text-xs text-muted-foreground">
-              Supported: Greenhouse (boards.greenhouse.io/...) and Lever (jobs.lever.co/...)
+              Supported: Greenhouse, Lever, and Workday (myworkdayjobs.com)
             </p>
             {errors.companyJobsUrl && (
               <p className="text-sm text-destructive">{errors.companyJobsUrl}</p>
