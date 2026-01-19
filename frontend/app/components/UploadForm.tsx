@@ -103,15 +103,15 @@ export function UploadForm() {
     
     try {
       const requestBody: Record<string, string> = {
-        desired_job_description: formData.desiredJobDescription,
-        company_jobs_url: formData.companyJobsUrl,
+        desired_job_description: formData.desiredJobDescription.trim(),
+        company_jobs_url: formData.companyJobsUrl.trim(),
       };
       
       if (formData.resumeFile) {
         const base64 = await fileToBase64(formData.resumeFile);
         requestBody.resume_file_base64 = base64;
       } else {
-        requestBody.resume_text = formData.resumeText;
+        requestBody.resume_text = formData.resumeText.trim();
       }
       
       const response = await fetch("/api/recommend", {
@@ -122,7 +122,22 @@ export function UploadForm() {
       
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.detail?.message || "Failed to get recommendations");
+        let errorMessage = "Failed to get recommendations";
+        
+        if (errorData.detail) {
+          if (typeof errorData.detail === "string") {
+            errorMessage = errorData.detail;
+          } else if (Array.isArray(errorData.detail)) {
+            // Handle Pydantic validation errors
+            errorMessage = errorData.detail
+              .map((err: { msg?: string; message?: string }) => err.msg || err.message || "Validation error")
+              .join(", ");
+          } else if (typeof errorData.detail === "object" && errorData.detail.message) {
+            errorMessage = errorData.detail.message;
+          }
+        }
+        
+        throw new Error(errorMessage);
       }
       
       const data = await response.json();
