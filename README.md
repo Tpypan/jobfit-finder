@@ -1,2 +1,3 @@
-# jobfit-finder
-finds the most suitable jobs for you at a given company.
+# JobFit Finder
+
+Public web app that matches a user's resume + preferences to job postings from a company link (Greenhouse/Lever) and recommends best-fit jobs with explanations.
