@@ -21,7 +21,8 @@ class WorkdayConnector(JobSourceConnector):
         super().__init__(company_url)
         self.company_slug, self.site_slug = self._extract_slugs()
         # Workday uses a CXS API endpoint for job data
-        self.api_base = f"https://{self.company_slug}.wd5.myworkdayjobs.com/wday/cxs/{self.company_slug}/{self.site_slug}"
+        # Note: api_base must use self.wd_instance which is set during _extract_slugs()
+        self.api_base = f"https://{self.company_slug}.{self.wd_instance}.myworkdayjobs.com/wday/cxs/{self.company_slug}/{self.site_slug}"
     
     def _extract_slugs(self) -> tuple[str, str]:
         """
