@@ -232,7 +232,7 @@ export function UploadForm() {
             </Label>
             <Input
               id="company-url"
-              type="url"
+              type="text"
               placeholder="https://boards.greenhouse.io/companyname"
               value={formData.companyJobsUrl}
               onChange={(e) => setFormData(prev => ({ ...prev, companyJobsUrl: e.target.value }))}

@@ -20,7 +20,7 @@ class GeminiClient:
     def __init__(self):
         settings = get_settings()
         genai.configure(api_key=settings.gemini_api_key)
-        self.model = genai.GenerativeModel("gemini-1.5-flash")
+        self.model = genai.GenerativeModel("gemini-2.0-flash")
     
     async def extract_structured(
         self,
